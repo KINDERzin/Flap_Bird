@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlapBird.MainPage"
+             Shell.NavBarIsVisible="false">
+
+    <Grid>
+        <!-- Imagem de fundo-->
+        <Image Source="fundo.png"
+               VerticalOptions="Fill"
+               HorizontalOptions="Fill"/>
+        <!-- Imagem do personagem-->
+        <Image Source="passarinho.png"
+               HeightRequest="50"
+               WidthRequest="50"
+               HorizontalOptions="Start"/>
+        <!-- Imagem dos postes-->
+        <Image Source="poste_cima.png"
+            VerticalOptions="Start"
+            HorizontalOptions="End"/>
+        <!-- Imagem dos postes-->
+        <Image Source="poste_baixo.png"/>
+        <!-- Imagem do chão-->
+        <Image Source="chao.png"
+               VerticalOptions="EndAndExpand"
+               HeightRequest="600"
+               WidthRequest="1000"/>
+        <!-- Frame de game over-->
+        <Frame IsVisible="false">
+            <!-- Tela de game over-->
+            <Image Source=".png"/>
+        </Frame>
+    </Grid>
+</ContentPage>
