@@ -4,31 +4,41 @@
              x:Class="FlapBird.MainPage"
              Shell.NavBarIsVisible="false">
 
-    <Grid>
-        <!-- Imagem de fundo-->
-        <Image Source="fundo.png"
-               VerticalOptions="Fill"
-               HorizontalOptions="Fill"/>
-        <!-- Imagem do personagem-->
-        <Image Source="passarinho.png"
-               HeightRequest="50"
-               WidthRequest="50"
-               HorizontalOptions="Start"/>
-        <!-- Imagem dos postes-->
-        <Image Source="poste_cima.png"
-            VerticalOptions="Start"
-            HorizontalOptions="End"/>
-        <!-- Imagem dos postes-->
-        <Image Source="poste_baixo.png"/>
-        <!-- Imagem do chão-->
-        <Image Source="chao.png"
-               VerticalOptions="EndAndExpand"
-               HeightRequest="600"
-               WidthRequest="1000"/>
-        <!-- Frame de game over-->
-        <Frame IsVisible="false">
-            <!-- Tela de game over-->
-            <Image Source=".png"/>
-        </Frame>
-    </Grid>
+       <Grid>
+              <!-- Imagem de fundo-->
+              <Image Source="fundo_cinco.jpg"
+                     Aspect="Fill"/>
+              <!-- Imagem do personagem-->
+              <Image Source="passarinho.png"
+                     x:Name="imagemPersonagem"
+                     HeightRequest="50"
+                     WidthRequest="50"
+                     HorizontalOptions="Start"/>
+              <!-- Imagem dos postes-->
+              <Image Source="poste_cima.png"
+                     VerticalOptions="Start"
+                     HorizontalOptions="End"
+                     HeightRequest="350"/>
+              <!-- Imagem dos postes-->
+              <Image Source="poste_baixo.png"
+                     VerticalOptions="End"
+                     HorizontalOptions="End"
+                     HeightRequest="350"/>
+              <!-- Imagem do chão-->
+              <Image Source="chao_dois.png"
+                     VerticalOptions="End"
+                     HorizontalOptions="Fill"/>
+              <!-- Frame de game over-->
+              <Frame IsVisible="true"
+                     x:Name="frameGameOver"
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Fill"
+                     BackgroundColor="Transparent">
+                     <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnGameOverClicked"/>
+                     </Frame.GestureRecognizers>
+                     <!-- Tela de game over-->
+                     <Image Source="gameover.png"/>
+              </Frame>
+       </Grid>
 </ContentPage>
