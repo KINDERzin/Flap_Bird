@@ -5,6 +5,9 @@ public partial class MainPage : ContentPage
 	const int Gravidade = 2; // Pixel/Milisegundo
 	const int tempoEntreFrames = 25; // Milisegundos
 	bool estaMorto = true;
+	double larguraJanela = 0;
+	double alturaJanela = 0;
+	int velocidade = 20;
 
 	public MainPage()
 	{
@@ -22,6 +25,7 @@ public partial class MainPage : ContentPage
 		{
 			AplicaGravidade();
 			await Task.Delay(tempoEntreFrames);
+			GerenciarCanos();
 		}
 
 	}
@@ -38,6 +42,23 @@ public partial class MainPage : ContentPage
 	{
 		estaMorto = false;
 		imagemPersonagem.TranslationY = 0;
+	}
+
+	protected override void OnSizeAllocated(double w, double h)
+	{
+		base.OnSizeAllocated(w, h);
+		larguraJanela = w;
+		alturaJanela = h;
+	}
+
+	void GerenciarCanos()
+	{
+		posteCima.TranslationX -= velocidade;
+		posteBaixo.TranslationX -= velocidade;
+		if(posteBaixo.TranslationX < -larguraJanela){
+			posteBaixo.TranslationX = 20;
+			posteCima.TranslationX = 20;
+		}
 	}
 }
 

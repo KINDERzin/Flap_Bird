@@ -16,16 +16,18 @@
                      HorizontalOptions="Start"/>
               <!-- Imagem dos postes-->
               <Image Source="poste_cima.png"
+                     x:Name="posteCima"
                      VerticalOptions="Start"
                      HorizontalOptions="End"
                      HeightRequest="350"/>
               <!-- Imagem dos postes-->
               <Image Source="poste_baixo.png"
+                     x:Name="posteBaixo"
                      VerticalOptions="End"
                      HorizontalOptions="End"
                      HeightRequest="350"/>
               <!-- Imagem do chão-->
-              <Image Source="chao_dois.png"
+              <Image Source="pipi.jpg"
                      VerticalOptions="End"
                      HorizontalOptions="Fill"/>
               <!-- Frame de game over-->
