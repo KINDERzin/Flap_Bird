@@ -13,7 +13,8 @@
                      x:Name="imagemPersonagem"
                      HeightRequest="50"
                      WidthRequest="50"
-                     HorizontalOptions="Start"/>
+                     HorizontalOptions="Start"
+                     Margin="20, 0, 0, 0"/>
               <!-- Imagem dos postes-->
               <Image Source="poste_cima.png"
                      x:Name="posteCima"
@@ -27,9 +28,12 @@
                      HorizontalOptions="End"
                      HeightRequest="350"/>
               <!-- Imagem do chão-->
-              <Image Source="pipi.jpg"
+              <Image Source="chao.jpg"
+                     x:Name="imagemChao"
+                     HeightRequest="100"
                      VerticalOptions="End"
-                     HorizontalOptions="Fill"/>
+                     HorizontalOptions="Fill"
+                     Aspect="Fill"/>
               <!-- Frame de game over-->
               <Frame IsVisible="true"
                      x:Name="frameGameOver"

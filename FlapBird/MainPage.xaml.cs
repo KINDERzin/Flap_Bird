@@ -23,9 +23,15 @@ public partial class MainPage : ContentPage
 	{
 		while (!estaMorto)
 		{
-			AplicaGravidade();
-			await Task.Delay(tempoEntreFrames);
 			GerenciarCanos();
+			AplicaGravidade();
+			if (VericaColizao())
+			{
+				estaMorto = true;
+				frameGameOver.IsVisible = true;
+				break;
+			}
+			await Task.Delay(tempoEntreFrames);
 		}
 
 	}
@@ -35,13 +41,14 @@ public partial class MainPage : ContentPage
 		frameGameOver.IsVisible = false;
 		Inicializar();
 		Desenha();
-
 	}
 
 	void Inicializar()
 	{
 		estaMorto = false;
 		imagemPersonagem.TranslationY = 0;
+		posteBaixo.TranslationX = 0;
+		posteCima.TranslationX = 0;
 	}
 
 	protected override void OnSizeAllocated(double w, double h)
@@ -55,10 +62,43 @@ public partial class MainPage : ContentPage
 	{
 		posteCima.TranslationX -= velocidade;
 		posteBaixo.TranslationX -= velocidade;
-		if(posteBaixo.TranslationX < -larguraJanela){
+		if (posteBaixo.TranslationX < -larguraJanela)
+		{
 			posteBaixo.TranslationX = 20;
 			posteCima.TranslationX = 20;
 		}
 	}
-}
 
+	bool VerificaColizaoTeto()
+	{
+		var minY = -alturaJanela / 2;
+
+		if (imagemPersonagem.TranslationY <= minY)
+			return true;
+		else
+			return false;
+	}
+
+	bool VerificaColizaoChao()
+	{
+		var maxY = alturaJanela / 2 - imagemChao.HeightRequest - 210;
+
+		if (imagemPersonagem.TranslationY >= maxY)
+			return true;
+		else
+			return false;
+	}
+
+	bool VericaColizao()
+	{
+		if (!estaMorto)
+		{
+			if (VerificaColizaoTeto() || VerificaColizaoChao())
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+}
