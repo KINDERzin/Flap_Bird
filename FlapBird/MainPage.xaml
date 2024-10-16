@@ -5,6 +5,9 @@
              Shell.NavBarIsVisible="false">
 
        <Grid>
+              <Grid.GestureRecognizers>
+                     <TapGestureRecognizer Tapped="OnGridClicked"/>
+              </Grid.GestureRecognizers>
               <!-- Imagem de fundo-->
               <Image Source="fundo_cinco.jpg"
                      Aspect="Fill"/>
@@ -16,17 +19,19 @@
                      HorizontalOptions="Start"
                      Margin="20, 0, 0, 0"/>
               <!-- Imagem dos postes-->
-              <Image Source="poste_cima.png"
+              <Image Source="cano_cima.jpg"
                      x:Name="posteCima"
                      VerticalOptions="Start"
                      HorizontalOptions="End"
-                     HeightRequest="350"/>
+                     HeightRequest="620"
+                     WidthRequest="30"/>
               <!-- Imagem dos postes-->
-              <Image Source="poste_baixo.png"
+              <Image Source="cano_baixo.jpg"
                      x:Name="posteBaixo"
                      VerticalOptions="End"
                      HorizontalOptions="End"
-                     HeightRequest="350"/>
+                     HeightRequest="620"
+                     WidthRequest="30"/>
               <!-- Imagem do chão-->
               <Image Source="chao.jpg"
                      x:Name="imagemChao"

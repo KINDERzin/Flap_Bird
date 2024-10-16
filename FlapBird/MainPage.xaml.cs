@@ -4,10 +4,19 @@ public partial class MainPage : ContentPage
 {
 	const int Gravidade = 2; // Pixel/Milisegundo
 	const int tempoEntreFrames = 25; // Milisegundos
-	bool estaMorto = true;
+	const int forcaPulo = 30;
+	const int maxTempoPulando = 3;
+	const int aberturaMinima = 100;
+
+	int velocidade = 20;
+	int tempoPulando = 0;
+
 	double larguraJanela = 0;
 	double alturaJanela = 0;
-	int velocidade = 20;
+
+	bool estaMorto = true;
+	bool estaPulando = false;
+
 
 	public MainPage()
 	{
@@ -24,7 +33,10 @@ public partial class MainPage : ContentPage
 		while (!estaMorto)
 		{
 			GerenciarCanos();
-			AplicaGravidade();
+			if (estaPulando)
+				AplicaPulo();
+			else
+				AplicaGravidade();
 			if (VericaColizao())
 			{
 				estaMorto = true;
@@ -60,12 +72,19 @@ public partial class MainPage : ContentPage
 
 	void GerenciarCanos()
 	{
+
 		posteCima.TranslationX -= velocidade;
 		posteBaixo.TranslationX -= velocidade;
 		if (posteBaixo.TranslationX < -larguraJanela)
 		{
 			posteBaixo.TranslationX = 20;
 			posteCima.TranslationX = 20;
+		
+			var alturaMaxima = -100;
+			var alturaMinima = -posteBaixo.HeightRequest;
+
+			posteCima.TranslationY = Random.Shared.Next((int)alturaMinima, (int)alturaMaxima);
+			posteBaixo.TranslationY = posteCima.TranslationY + aberturaMinima + posteBaixo.HeightRequest;
 		}
 	}
 
@@ -81,7 +100,7 @@ public partial class MainPage : ContentPage
 
 	bool VerificaColizaoChao()
 	{
-		var maxY = alturaJanela / 2 - imagemChao.HeightRequest - 210;
+		var maxY = alturaJanela / 2 - imagemChao.HeightRequest - 30;
 
 		if (imagemPersonagem.TranslationY >= maxY)
 			return true;
@@ -100,5 +119,22 @@ public partial class MainPage : ContentPage
 		}
 
 		return false;
+	}
+
+	void AplicaPulo()
+	{
+		imagemPersonagem.TranslationY -= forcaPulo;
+		tempoPulando++;
+
+		if (tempoPulando >= maxTempoPulando)
+		{
+			estaPulando = false;
+			tempoPulando = 0;
+		}
+	}
+
+	void OnGridClicked(object s, TappedEventArgs args)
+	{
+		estaPulando = true;
 	}
 }
