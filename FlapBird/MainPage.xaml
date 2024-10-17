@@ -39,6 +39,19 @@
                      VerticalOptions="End"
                      HorizontalOptions="Fill"
                      Aspect="Fill"/>
+
+              <Frame HorizontalOptions="End"
+                     VerticalOptions="Start"
+                     BorderColor="White"
+                     BackgroundColor="Transparent"
+                     Margin="20"
+                     HeightRequest="60"
+                     WidthRequest="180">
+                     <Label Text="Canos: 000"
+                            x:Name="labelPontuacao"
+                            TextColor="White"
+                            HorizontalTextAlignment="Start"/>
+              </Frame>
               <!-- Frame de game over-->
               <Frame IsVisible="true"
                      x:Name="frameGameOver"
@@ -48,8 +61,17 @@
                      <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnGameOverClicked"/>
                      </Frame.GestureRecognizers>
+                     <VerticalStackLayout VerticalOptions="Center">
                      <!-- Tela de game over-->
-                     <Image Source="gameover.png"/>
+                     <Image Source="gameover.png"
+                            WidthRequest="500"/>
+
+                     <Label Text="Você pasou por 0 canos" 
+                            x:Name="labelGameOver"
+                            TextColor="White"
+                            HorizontalOptions="Center"
+                            Margin="10"/>
+                     </VerticalStackLayout>
               </Frame>
        </Grid>
 </ContentPage>

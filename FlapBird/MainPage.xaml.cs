@@ -2,14 +2,15 @@
 
 public partial class MainPage : ContentPage
 {
-	const int Gravidade = 2; // Pixel/Milisegundo
+	const int Gravidade = 5; // Pixel/Milisegundo
 	const int tempoEntreFrames = 25; // Milisegundos
 	const int forcaPulo = 30;
 	const int maxTempoPulando = 3;
-	const int aberturaMinima = 100;
+	const int aberturaMinima = 50;
 
 	int velocidade = 20;
 	int tempoPulando = 0;
+	int pontuacao = 0;
 
 	double larguraJanela = 0;
 	double alturaJanela = 0;
@@ -41,6 +42,7 @@ public partial class MainPage : ContentPage
 			{
 				estaMorto = true;
 				frameGameOver.IsVisible = true;
+				labelGameOver.Text = "Você passou \n por  " + pontuacao + "\n canos!";
 				break;
 			}
 			await Task.Delay(tempoEntreFrames);
@@ -61,6 +63,7 @@ public partial class MainPage : ContentPage
 		imagemPersonagem.TranslationY = 0;
 		posteBaixo.TranslationX = 0;
 		posteCima.TranslationX = 0;
+		pontuacao = 0;
 	}
 
 	protected override void OnSizeAllocated(double w, double h)
@@ -80,11 +83,14 @@ public partial class MainPage : ContentPage
 			posteBaixo.TranslationX = 20;
 			posteCima.TranslationX = 20;
 		
-			var alturaMaxima = -100;
+			var alturaMaxima = -50;
 			var alturaMinima = -posteBaixo.HeightRequest;
 
 			posteCima.TranslationY = Random.Shared.Next((int)alturaMinima, (int)alturaMaxima);
 			posteBaixo.TranslationY = posteCima.TranslationY + aberturaMinima + posteBaixo.HeightRequest;
+
+			pontuacao++;
+			labelPontuacao.Text = "Canos: " + pontuacao.ToString("D3");
 		}
 	}
 
