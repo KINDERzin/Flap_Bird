@@ -6,9 +6,9 @@ public partial class MainPage : ContentPage
 	const int tempoEntreFrames = 25; // Milisegundos
 	const int forcaPulo = 30;
 	const int maxTempoPulando = 3;
-	const int aberturaMinima = 50;
+	const int aberturaMinima = 80;
 
-	int velocidade = 20;
+	int velocidade = 5;
 	int tempoPulando = 0;
 	int pontuacao = 0;
 
@@ -33,16 +33,19 @@ public partial class MainPage : ContentPage
 	{
 		while (!estaMorto)
 		{
-			GerenciarCanos();
+			
 			if (estaPulando)
 				AplicaPulo();
 			else
 				AplicaGravidade();
+
+			GerenciarCanos();
+
 			if (VericaColizao())
 			{
 				estaMorto = true;
 				frameGameOver.IsVisible = true;
-				labelGameOver.Text = "Você passou \n por  " + pontuacao + "\n canos!";
+				labelGameOver.Text = $"Você passou \n por {pontuacao} \n canos!";
 				break;
 			}
 			await Task.Delay(tempoEntreFrames);
@@ -61,9 +64,11 @@ public partial class MainPage : ContentPage
 	{
 		estaMorto = false;
 		imagemPersonagem.TranslationY = 0;
-		posteBaixo.TranslationX = 0;
-		posteCima.TranslationX = 0;
+		imagemPersonagem.TranslationX = 0;
+		canoBaixo.TranslationX = -larguraJanela;
+		canoCima.TranslationX = -larguraJanela;
 		pontuacao = 0;
+		GerenciarCanos();
 	}
 
 	protected override void OnSizeAllocated(double w, double h)
@@ -76,18 +81,18 @@ public partial class MainPage : ContentPage
 	void GerenciarCanos()
 	{
 
-		posteCima.TranslationX -= velocidade;
-		posteBaixo.TranslationX -= velocidade;
-		if (posteBaixo.TranslationX < -larguraJanela)
+		canoCima.TranslationX -= velocidade;
+		canoBaixo.TranslationX -= velocidade;
+		if (canoBaixo.TranslationX < -larguraJanela)
 		{
-			posteBaixo.TranslationX = 20;
-			posteCima.TranslationX = 20;
-		
-			var alturaMaxima = -50;
-			var alturaMinima = -posteBaixo.HeightRequest;
+			canoBaixo.TranslationX = 20;
+			canoCima.TranslationX = 20;
 
-			posteCima.TranslationY = Random.Shared.Next((int)alturaMinima, (int)alturaMaxima);
-			posteBaixo.TranslationY = posteCima.TranslationY + aberturaMinima + posteBaixo.HeightRequest;
+			var alturaMaxima = -50;
+			var alturaMinima = -canoBaixo.HeightRequest;
+
+			canoCima.TranslationY = Random.Shared.Next((int)alturaMinima, (int)alturaMaxima);
+			canoBaixo.TranslationY = canoCima.TranslationY + aberturaMinima + canoBaixo.HeightRequest;
 
 			pontuacao++;
 			labelPontuacao.Text = "Canos: " + pontuacao.ToString("D3");
@@ -118,7 +123,7 @@ public partial class MainPage : ContentPage
 	{
 		if (!estaMorto)
 		{
-			if (VerificaColizaoTeto() || VerificaColizaoChao())
+			if (VerificaColizaoTeto() || VerificaColizaoChao() || VerificaColisaoCanoCima() || VerificaColisaoCanoBaixo())
 			{
 				return true;
 			}
@@ -143,4 +148,36 @@ public partial class MainPage : ContentPage
 	{
 		estaPulando = true;
 	}
+
+	bool VerificaColisaoCanoCima()
+	{
+		//Posição horizontal
+		var posicaoHPardal = (larguraJanela / 2) - (imagemPersonagem.WidthRequest / 2);
+		//Posição vertical
+		var posicaoVPardal = (alturaJanela / 2) - (imagemPersonagem.HeightRequest / 2) + imagemPersonagem.TranslationY;
+
+		if (posicaoHPardal >= Math.Abs(canoCima.TranslationX) - canoCima.WidthRequest && 
+		posicaoHPardal <= Math.Abs(canoCima.TranslationX) + canoCima.WidthRequest && 
+		posicaoVPardal <= canoCima.HeightRequest + canoCima.TranslationY)
+			return true;
+		else
+			return false;
+	}
+
+	bool VerificaColisaoCanoBaixo()
+	{
+		//Posição horizontal
+		var posicaoHPardal = (larguraJanela / 2) - (imagemPersonagem.WidthRequest / 2);
+		//Posição vertical
+		var posicaoVPardal = (alturaJanela / 2) - (imagemPersonagem.HeightRequest / 2) + imagemPersonagem.TranslationY;
+
+		if (posicaoHPardal >= Math.Abs(canoBaixo.TranslationX) + canoBaixo.WidthRequest && 
+		posicaoHPardal <= Math.Abs(canoBaixo.TranslationX) + canoBaixo.WidthRequest && 
+		posicaoVPardal <= canoBaixo.HeightRequest + canoBaixo.TranslationY)
+			return true;
+		else
+			return false;
+	}
+
+	
 }

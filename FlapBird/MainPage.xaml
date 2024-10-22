@@ -13,25 +13,27 @@
                      Aspect="Fill"/>
               <!-- Imagem do personagem-->
               <Image Source="passarinho.png"
+                     BackgroundColor="Green"
                      x:Name="imagemPersonagem"
                      HeightRequest="50"
                      WidthRequest="50"
-                     HorizontalOptions="Start"
-                     Margin="20, 0, 0, 0"/>
+                     HorizontalOptions="Center"/>
               <!-- Imagem dos postes-->
               <Image Source="cano_cima.jpg"
-                     x:Name="posteCima"
+                     x:Name="canoCima"
                      VerticalOptions="Start"
                      HorizontalOptions="End"
                      HeightRequest="620"
-                     WidthRequest="30"/>
+                     WidthRequest="30"
+                     BackgroundColor="Red"/>
               <!-- Imagem dos postes-->
               <Image Source="cano_baixo.jpg"
-                     x:Name="posteBaixo"
+                     x:Name="canoBaixo"
                      VerticalOptions="End"
                      HorizontalOptions="End"
                      HeightRequest="620"
-                     WidthRequest="30"/>
+                     WidthRequest="30"
+                     BackgroundColor="Blue"/>
               <!-- Imagem do chão-->
               <Image Source="chao.jpg"
                      x:Name="imagemChao"
