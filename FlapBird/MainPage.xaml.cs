@@ -33,7 +33,6 @@ public partial class MainPage : ContentPage
 	{
 		while (!estaMorto)
 		{
-			
 			if (estaPulando)
 				AplicaPulo();
 			else
@@ -95,6 +94,7 @@ public partial class MainPage : ContentPage
 			canoBaixo.TranslationY = canoCima.TranslationY + aberturaMinima + canoBaixo.HeightRequest;
 
 			pontuacao++;
+			SoundHelper.Play("ponto.wav");
 			labelPontuacao.Text = "Canos: " + pontuacao.ToString("D3");
 		}
 	}
@@ -142,6 +142,7 @@ public partial class MainPage : ContentPage
 			estaPulando = false;
 			tempoPulando = 0;
 		}
+		SoundHelper.Play("pulo.wav");
 	}
 
 	void OnGridClicked(object s, TappedEventArgs args)
@@ -156,8 +157,8 @@ public partial class MainPage : ContentPage
 		//Posição vertical
 		var posicaoVPardal = (alturaJanela / 2) - (imagemPersonagem.HeightRequest / 2) + imagemPersonagem.TranslationY;
 
-		if (posicaoHPardal >= Math.Abs(canoCima.TranslationX) - canoCima.WidthRequest && 
-		posicaoHPardal <= Math.Abs(canoCima.TranslationX) + canoCima.WidthRequest && 
+		if (posicaoHPardal >= Math.Abs(canoCima.TranslationX) - canoCima.WidthRequest &&
+		posicaoHPardal <= Math.Abs(canoCima.TranslationX) + canoCima.WidthRequest &&
 		posicaoVPardal <= canoCima.HeightRequest + canoCima.TranslationY)
 			return true;
 		else
@@ -166,18 +167,18 @@ public partial class MainPage : ContentPage
 
 	bool VerificaColisaoCanoBaixo()
 	{
-		//Posição horizontal
-		var posicaoHPardal = (larguraJanela / 2) - (imagemPersonagem.WidthRequest / 2);
-		//Posição vertical
-		var posicaoVPardal = (alturaJanela / 2) - (imagemPersonagem.HeightRequest / 2) + imagemPersonagem.TranslationY;
-
-		if (posicaoHPardal >= Math.Abs(canoBaixo.TranslationX) + canoBaixo.WidthRequest && 
-		posicaoHPardal <= Math.Abs(canoBaixo.TranslationX) + canoBaixo.WidthRequest && 
-		posicaoVPardal <= canoBaixo.HeightRequest + canoBaixo.TranslationY)
+		var posHPomba = (larguraJanela / 2) - (imagemPersonagem.WidthRequest / 2);
+		var posVPomba = (alturaJanela / 2) - (imagemPersonagem.HeightRequest / 2) + imagemPersonagem.TranslationY;
+		var yMaxCano = canoCima.HeightRequest + canoCima.TranslationY + aberturaMinima;
+		if (posHPomba >= Math.Abs(canoBaixo.TranslationX) - canoBaixo.WidthRequest &&
+		 posHPomba <= Math.Abs(canoBaixo.TranslationX) + canoBaixo.WidthRequest &&
+		 posVPomba >= yMaxCano)
+		{
 			return true;
+		}
 		else
+		{
 			return false;
+		}
 	}
-
-	
 }

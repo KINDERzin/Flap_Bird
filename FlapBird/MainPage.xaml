@@ -13,7 +13,6 @@
                      Aspect="Fill"/>
               <!-- Imagem do personagem-->
               <Image Source="passarinho.png"
-                     BackgroundColor="Green"
                      x:Name="imagemPersonagem"
                      HeightRequest="50"
                      WidthRequest="50"
@@ -25,7 +24,7 @@
                      HorizontalOptions="End"
                      HeightRequest="620"
                      WidthRequest="30"
-                     BackgroundColor="Red"/>
+                     />
               <!-- Imagem dos postes-->
               <Image Source="cano_baixo.jpg"
                      x:Name="canoBaixo"
@@ -33,7 +32,7 @@
                      HorizontalOptions="End"
                      HeightRequest="620"
                      WidthRequest="30"
-                     BackgroundColor="Blue"/>
+                     />
               <!-- Imagem do chão-->
               <Image Source="chao.jpg"
                      x:Name="imagemChao"
