@@ -22,6 +22,7 @@ public partial class MainPage : ContentPage
 	public MainPage()
 	{
 		InitializeComponent();
+		SoundHelper.Play("fundo.wav");
 	}
 
 	void AplicaGravidade()
@@ -43,6 +44,7 @@ public partial class MainPage : ContentPage
 			if (VericaColizao())
 			{
 				estaMorto = true;
+				SoundHelper.Play("morte.wav");
 				frameGameOver.IsVisible = true;
 				labelGameOver.Text = $"Você passou \n por {pontuacao} \n canos!";
 				break;
@@ -55,6 +57,7 @@ public partial class MainPage : ContentPage
 	void OnGameOverClicked(object s, TappedEventArgs e)
 	{
 		frameGameOver.IsVisible = false;
+		SoundHelper.Play("comeco.wav");
 		Inicializar();
 		Desenha();
 	}

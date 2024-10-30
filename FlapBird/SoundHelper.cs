@@ -1,5 +1,6 @@
 using Plugin.Maui.Audio;
 
+namespace FlapBird;
 public class SoundHelper
 {
   public static void Play(string nomeArquivoWav)
