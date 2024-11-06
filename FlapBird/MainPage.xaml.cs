@@ -124,15 +124,7 @@ public partial class MainPage : ContentPage
 
 	bool VericaColizao()
 	{
-		if (!estaMorto)
-		{
-			if (VerificaColizaoTeto() || VerificaColizaoChao() || VerificaColisaoCanoCima() || VerificaColisaoCanoBaixo())
-			{
-				return true;
-			}
-		}
-
-		return false;
+		return (!estaMorto && (VerificaColizaoChao() || VerificaColizaoTeto() || VerificaColisaoCano()));
 	}
 
 	void AplicaPulo()
@@ -156,7 +148,7 @@ public partial class MainPage : ContentPage
 	bool VerificaColisaoCanoCima()
 	{
 		//Posição horizontal
-		var posicaoHPardal = (larguraJanela / 2) - (imagemPersonagem.WidthRequest / 2);
+		var posicaoHPardal = larguraJanela - 50 - (imagemPersonagem.WidthRequest / 2);
 		//Posição vertical
 		var posicaoVPardal = (alturaJanela / 2) - (imagemPersonagem.HeightRequest / 2) + imagemPersonagem.TranslationY;
 
@@ -170,12 +162,12 @@ public partial class MainPage : ContentPage
 
 	bool VerificaColisaoCanoBaixo()
 	{
-		var posHPomba = (larguraJanela / 2) - (imagemPersonagem.WidthRequest / 2);
-		var posVPomba = (alturaJanela / 2) - (imagemPersonagem.HeightRequest / 2) + imagemPersonagem.TranslationY;
+		var posHPomba = larguraJanela - 50 - imagemPersonagem.WidthRequest / 2;
+		var posVPomba = (alturaJanela / 2) + (imagemPersonagem.HeightRequest / 2) + imagemPersonagem.TranslationY;
 		var yMaxCano = canoCima.HeightRequest + canoCima.TranslationY + aberturaMinima;
-		if (posHPomba >= Math.Abs(canoBaixo.TranslationX) - canoBaixo.WidthRequest &&
-		 posHPomba <= Math.Abs(canoBaixo.TranslationX) + canoBaixo.WidthRequest &&
-		 posVPomba >= yMaxCano)
+		if (posHPomba >= Math.Abs(canoCima.TranslationX) - canoCima.WidthRequest &&
+		 	posHPomba <= Math.Abs(canoCima.TranslationX) + canoCima.WidthRequest &&
+		 	posVPomba >= yMaxCano)
 		{
 			return true;
 		}

@@ -16,7 +16,9 @@
                      x:Name="imagemPersonagem"
                      HeightRequest="50"
                      WidthRequest="50"
-                     HorizontalOptions="Center"/>
+                     HorizontalOptions="Start"
+                     VerticalOptions="Center"
+                     BackgroundColor="Blue"/>
               <!-- Imagem dos postes-->
               <Image Source="cano_cima.jpg"
                      x:Name="canoCima"
@@ -24,7 +26,7 @@
                      HorizontalOptions="End"
                      HeightRequest="620"
                      WidthRequest="30"
-                     />
+                     BackgroundColor="black"/>
               <!-- Imagem dos postes-->
               <Image Source="cano_baixo.jpg"
                      x:Name="canoBaixo"
@@ -32,7 +34,7 @@
                      HorizontalOptions="End"
                      HeightRequest="620"
                      WidthRequest="30"
-                     />
+                     BackgroundColor="black"/>
               <!-- Imagem do chão-->
               <Image Source="chao.jpg"
                      x:Name="imagemChao"
@@ -40,7 +42,7 @@
                      VerticalOptions="End"
                      HorizontalOptions="Fill"
                      Aspect="Fill"/>
-
+              <!-- Frame pontuação -->
               <Frame HorizontalOptions="End"
                      VerticalOptions="Start"
                      BorderColor="White"
@@ -65,7 +67,7 @@
                      <VerticalStackLayout VerticalOptions="Center">
                      <!-- Tela de game over-->
                      <Image Source="gameover.png"
-                            WidthRequest="500"/>
+                            WidthRequest="300"/>
 
                      <Label Text="Você pasou por 0 canos" 
                             x:Name="labelGameOver"
