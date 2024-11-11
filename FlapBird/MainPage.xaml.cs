@@ -124,7 +124,15 @@ public partial class MainPage : ContentPage
 
 	bool VericaColizao()
 	{
-		return (!estaMorto && (VerificaColizaoChao() || VerificaColizaoTeto() || VerificaColisaoCano()));
+		return (!estaMorto && (VerificaColizaoChao() || VerificaColizaoTeto() || VerificaColizaoCano()));
+	}
+
+	bool VerificaColizaoCano()
+	{
+		if(VerificaColisaoCanoBaixo() || VerificaColizaoTeto())
+			return true;
+		else 
+		return false;
 	}
 
 	void AplicaPulo()
