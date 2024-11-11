@@ -2,9 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FlapBird.MainPage"
-             Shell.NavBarIsVisible="false">
+             Shell.NavBarIsVisible="false"
+             Padding="0">
 
-       <Grid>
+       <Grid Margin ="0"
+              Padding="0">
               <Grid.GestureRecognizers>
                      <TapGestureRecognizer Tapped="OnGridClicked"/>
               </Grid.GestureRecognizers>
@@ -14,14 +16,17 @@
               <!-- Imagem do personagem-->
               <Image Source="passarinho.png"
                      x:Name="imagemPersonagem"
+                     Aspect="AspectFit"
                      HeightRequest="50"
                      WidthRequest="50"
                      HorizontalOptions="Start"
                      VerticalOptions="Center"
-                     BackgroundColor="Blue"/>
+                     BackgroundColor="Blue"
+                     Margin="20, 0, 0, 0"/>
               <!-- Imagem dos postes-->
               <Image Source="cano_cima.jpg"
                      x:Name="canoCima"
+                     Aspect="Fill"
                      VerticalOptions="Start"
                      HorizontalOptions="End"
                      HeightRequest="620"
@@ -30,6 +35,7 @@
               <!-- Imagem dos postes-->
               <Image Source="cano_baixo.jpg"
                      x:Name="canoBaixo"
+                     Aspect="Fill"
                      VerticalOptions="End"
                      HorizontalOptions="End"
                      HeightRequest="620"

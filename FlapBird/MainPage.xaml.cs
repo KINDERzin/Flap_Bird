@@ -6,7 +6,7 @@ public partial class MainPage : ContentPage
 	const int tempoEntreFrames = 25; // Milisegundos
 	const int forcaPulo = 30;
 	const int maxTempoPulando = 3;
-	const int aberturaMinima = 80;
+	const int aberturaMinima = 200;
 
 	int velocidade = 5;
 	int tempoPulando = 0;
@@ -23,6 +23,11 @@ public partial class MainPage : ContentPage
 	{
 		InitializeComponent();
 		SoundHelper.Play("fundo.wav");
+	}
+
+	protected override void OnAppearing()
+	{
+		base.OnAppearing();
 	}
 
 	void AplicaGravidade()
@@ -65,19 +70,27 @@ public partial class MainPage : ContentPage
 	void Inicializar()
 	{
 		estaMorto = false;
-		imagemPersonagem.TranslationY = 0;
-		imagemPersonagem.TranslationX = 0;
+
 		canoBaixo.TranslationX = -larguraJanela;
 		canoCima.TranslationX = -larguraJanela;
+		imagemPersonagem.TranslationY = 0;
+		imagemPersonagem.TranslationX = 0;
 		pontuacao = 0;
+
 		GerenciarCanos();
 	}
 
-	protected override void OnSizeAllocated(double w, double h)
+	protected override void OnSizeAllocated(double width, double height)
 	{
-		base.OnSizeAllocated(w, h);
-		larguraJanela = w;
-		alturaJanela = h;
+		base.OnSizeAllocated(width, height);
+		larguraJanela = width;
+		alturaJanela = height;
+
+		if(height > 0)
+		{
+			canoCima.HeightRequest = height;
+			canoBaixo.HeightRequest = height;
+		}
 	}
 
 	void GerenciarCanos()
@@ -90,15 +103,18 @@ public partial class MainPage : ContentPage
 			canoBaixo.TranslationX = 20;
 			canoCima.TranslationX = 20;
 
-			var alturaMaxima = -50;
-			var alturaMinima = -canoBaixo.HeightRequest;
+			var alturaMaxima = -(canoBaixo.HeightRequest * 0.2);
+			var alturaMinima = -(canoBaixo.HeightRequest * 0.8);
 
 			canoCima.TranslationY = Random.Shared.Next((int)alturaMinima, (int)alturaMaxima);
-			canoBaixo.TranslationY = canoCima.TranslationY + aberturaMinima + canoBaixo.HeightRequest;
+			canoBaixo.TranslationY = canoCima.HeightRequest + canoCima.TranslationY + aberturaMinima;
 
 			pontuacao++;
 			SoundHelper.Play("ponto.wav");
 			labelPontuacao.Text = "Canos: " + pontuacao.ToString("D3");
+
+			if(pontuacao % 4 == 0)
+				velocidade++;
 		}
 	}
 
@@ -114,7 +130,7 @@ public partial class MainPage : ContentPage
 
 	bool VerificaColizaoChao()
 	{
-		var maxY = alturaJanela / 2 - imagemChao.HeightRequest - 30;
+		var maxY = alturaJanela / 2 - imagemChao.HeightRequest;
 
 		if (imagemPersonagem.TranslationY >= maxY)
 			return true;
@@ -129,10 +145,10 @@ public partial class MainPage : ContentPage
 
 	bool VerificaColizaoCano()
 	{
-		if(VerificaColisaoCanoBaixo() || VerificaColizaoTeto())
+		if(VerificaColisaoCanoBaixo() || VerificaColisaoCanoCima())
 			return true;
 		else 
-		return false;
+			return false;
 	}
 
 	void AplicaPulo()
